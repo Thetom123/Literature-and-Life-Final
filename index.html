@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>人生模擬器 — 死生有命，富貴在天</title>
+<title>人生模擬器 — 吳念真〈遺書〉</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -14,12 +14,12 @@
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { background: var(--bg); color: var(--text); font-family: 'Noto Sans TC', sans-serif; min-height: 100vh; overflow-x: hidden; }
-  body::before { content:''; position:fixed; inset:0; background-image: radial-gradient(ellipse at 20% 50%, rgba(201,168,76,0.04) 0%, transparent 60%), radial-gradient(ellipse at 80% 20%, rgba(139,32,32,0.05) 0%, transparent 50%); pointer-events:none; z-index:0; }
+  body::before { content:''; position:fixed; inset:0; background-image: radial-gradient(ellipse at 20% 50%, rgba(201,168,76,0.04) 0%, transparent 60%), radial-gradient(ellipse at 80% 20%, rgba(139,32,32,0.06) 0%, transparent 50%); pointer-events:none; z-index:0; }
   .container { max-width: 680px; margin: 0 auto; padding: 3rem 1.5rem 4rem; position: relative; z-index: 1; }
-  .header { text-align: center; margin-bottom: 3rem; }
+  .header { text-align: center; margin-bottom: 2.5rem; }
   .header-eyebrow { font-size: 11px; letter-spacing: 0.3em; color: var(--gold-dim); text-transform: uppercase; margin-bottom: 1rem; }
   .header h1 { font-family: 'Noto Serif TC', serif; font-size: clamp(2rem, 6vw, 3rem); font-weight: 700; color: var(--gold2); line-height: 1.2; margin-bottom: 0.75rem; text-shadow: 0 0 40px rgba(201,168,76,0.3); }
-  .header-quote { font-size: 13px; color: var(--text3); font-family: 'Noto Serif TC', serif; letter-spacing: 0.1em; }
+  .header-quote { font-size: 13px; color: var(--text3); font-family: 'Noto Serif TC', serif; letter-spacing: 0.08em; line-height: 1.8; }
   .divider { display: flex; align-items: center; gap: 12px; margin: 2rem 0 1.5rem; }
   .divider::before, .divider::after { content:''; flex:1; height:0.5px; background:var(--border); }
   .divider span { font-size: 11px; letter-spacing: 0.2em; color: var(--gold-dim); white-space: nowrap; }
@@ -60,6 +60,10 @@
   .summary-box { background:var(--bg2); border:0.5px solid var(--border); border-radius:4px; padding:1rem 1.25rem; }
   .summary-label { font-size:11px; color:var(--text3); letter-spacing:0.1em; margin-bottom:6px; }
   .summary-val { font-family:'Noto Serif TC',serif; font-size:17px; color:var(--gold2); line-height:1.4; }
+  /* 課文反思框 */
+  .reflection { background:var(--bg2); border:0.5px solid rgba(139,32,32,0.4); border-radius:4px; padding:1.25rem 1.5rem; margin-top:1.5rem; }
+  .reflection-label { font-size:11px; letter-spacing:0.15em; color:#8b2020; margin-bottom:0.75rem; }
+  .reflection-text { font-size:13px; font-family:'Noto Serif TC',serif; color:var(--text2); line-height:1.9; font-style:italic; }
   .reset-btn { width:100%; padding:12px; background:transparent; border:0.5px solid var(--border); color:var(--text2); font-size:13px; font-family:'Noto Sans TC',sans-serif; cursor:pointer; margin-top:1rem; letter-spacing:0.1em; transition:all 0.2s; border-radius:4px; }
   .reset-btn:hover { border-color:var(--border2); color:var(--text); }
   @keyframes fadeUp { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
@@ -71,14 +75,25 @@
 </head>
 <body>
 <div class="container">
+
   <div class="header fade-in">
     <p class="header-eyebrow">文學與人生 · 期末報告</p>
     <h1>人生模擬器</h1>
-    <p class="header-quote">死生有命，富貴在天 ——《論語·顏淵》</p>
+    <p class="header-quote">
+      「大哥，你說要當一個有用的人，<br>我做到了，可是我真的很累。」<br>
+      <span style="font-size:11px;letter-spacing:0.2em;color:var(--gold-dim)">——吳念真〈遺書〉</span>
+    </p>
   </div>
 
   <div id="setup-section" class="fade-in-delay">
-    <div class="divider"><span>起始條件</span></div>
+
+    <p style="font-size:13px;color:var(--text2);line-height:1.9;margin-bottom:1.5rem;font-family:'Noto Serif TC',serif;font-style:italic;">
+      弟弟沒有得到選擇的機會——他的人生被期待填滿了。<br>
+      如果可以重新來過，他會選什麼？<br>
+      現在，換你決定一個人的人生。
+    </p>
+
+    <div class="divider"><span>起始條件（天命）</span></div>
     <div class="grid2">
       <div>
         <label class="field-label">出生地</label>
@@ -99,7 +114,8 @@
         </select>
       </div>
     </div>
-    <div class="divider"><span>個性傾向</span></div>
+
+    <div class="divider"><span>個性傾向（本性）</span></div>
     <div class="chip-group" id="traits">
       <div class="chip active" data-val="hardworking">努力型</div>
       <div class="chip" data-val="lucky">幸運兒</div>
@@ -108,7 +124,8 @@
       <div class="chip" data-val="rebel">叛逆者</div>
       <div class="chip" data-val="cautious">謹慎派</div>
     </div>
-    <div class="divider"><span>人生抉擇</span></div>
+
+    <div class="divider"><span>人生抉擇（人事）</span></div>
     <div class="grid3">
       <div>
         <label class="field-label">升學路線</label>
@@ -139,298 +156,299 @@
         </select>
       </div>
     </div>
+
     <button class="cta-btn" onclick="simulate()">擲骰，開始模擬人生</button>
   </div>
 
   <div id="result-section">
-    <div class="divider"><span>你的人生</span></div>
+    <div class="divider"><span>這個人的一生</span></div>
     <p class="result-headline" id="r-headline"></p>
     <p class="result-sub" id="r-sub"></p>
     <div id="r-tags"></div>
+
     <div class="divider"><span>人生數值</span></div>
     <div class="stats-grid" id="stats-grid"></div>
+
     <div class="divider"><span>大事紀</span></div>
     <div class="timeline" id="timeline"></div>
+
     <div class="summary-row">
       <div class="summary-box"><p class="summary-label">預估終老年齡</p><p class="summary-val" id="r-age">—</p></div>
       <div class="summary-box"><p class="summary-label">人生結局</p><p class="summary-val" id="r-ending" style="font-size:15px">—</p></div>
     </div>
+
+    <!-- 課文反思 -->
+    <div class="reflection">
+      <p class="reflection-label">〈遺書〉的提問</p>
+      <p class="reflection-text" id="r-reflection">—</p>
+    </div>
+
     <div class="ornament">· · ·</div>
     <button class="reset-btn" onclick="reset()">重新模擬一次</button>
   </div>
+
 </div>
-
 <script>
-// ── 事件庫 ──────────────────────────────────────────────
 const E = {
-
-childhood: [
-  {age:6, text:'第一天上小學，哭著不肯進教室，最後被老師抱進去的。', type:'normal'},
-  {age:7, text:'第一次搭飛機，看見雲從窗外飛過，覺得自己像在天上走路。', type:'great'},
-  {age:8, text:'在路邊撿到一隻流浪貓，偷偷養在房間裡三個月才被發現。', type:'normal'},
-  {age:9, text:'爸媽大吵一架，你躲在棉被裡哭著睡著，隔天什麼都沒說。', type:'bad'},
-  {age:10, text:'參加全縣作文比賽，意外拿了第一名，老師比你還高興。', type:'great'},
-  {age:11, text:'迷上一款電玩，廢寢忘食打了整個暑假，功課一塌糊塗。', type:'normal'},
-  {age:12, text:'被霸凌過一段時間，後來一個同學站出來說話，成了一生的好友。', type:'bad'},
-  {age:8, text:'颱風天，全家擠在客廳玩牌，停電了也捨不得睡。', type:'great'},
-  {age:10, text:'第一次坐高鐵，把臉貼在窗玻璃上，看著窗外的田野一片片飛過去。', type:'normal'},
-  {age:11, text:'奶奶過世，是你第一次在葬禮上站著，不知道該哭還是該站著。', type:'bad'},
-  {age:9, text:'學校運動會，你跑了第一名，媽媽在終點線那頭跳起來。', type:'great'},
-  {age:12, text:'第一次騎腳踏車，摔了七次，第八次終於成功，膝蓋破皮三處。', type:'normal'},
-  {age:7, text:'睡前爸爸說故事，說著說著他先睡著了，你盯著天花板想了很久。', type:'normal'},
-  {age:10, text:'偷看了一本不該看的書，從此覺得世界比想像中複雜很多。', type:'normal'},
-  {age:11, text:'第一次離家參加夏令營，哭著打電話回家，第三天開始覺得好玩。', type:'normal'},
-  {age:8, text:'發現爸媽也會哭，那天之後你開始覺得大人也只是人。', type:'bad'},
-  {age:12, text:'在廢棄空地和朋友蓋了一個秘密基地，被大雨沖垮的那天大家都笑了。', type:'great'},
-  {age:9, text:'第一次自己搭公車，坐過站了，在陌生的街上站了很久才鼓起勇氣問路。', type:'normal'},
+childhood:[
+  {age:6,text:'第一天上小學，哭著不肯進教室，最後被老師抱進去的。',type:'normal'},
+  {age:7,text:'第一次搭飛機，看見雲從窗外飛過，覺得自己像在天上走路。',type:'great'},
+  {age:8,text:'在路邊撿到一隻流浪貓，偷偷養在房間裡三個月才被發現。',type:'normal'},
+  {age:9,text:'爸媽大吵一架，你躲在棉被裡哭著睡著，隔天什麼都沒說。',type:'bad'},
+  {age:10,text:'參加全縣作文比賽，意外拿了第一名，老師比你還高興。',type:'great'},
+  {age:11,text:'迷上一款電玩，廢寢忘食打了整個暑假，功課一塌糊塗。',type:'normal'},
+  {age:12,text:'被霸凌過一段時間，後來一個同學站出來說話，成了一生的好友。',type:'bad'},
+  {age:8,text:'颱風天，全家擠在客廳玩牌，停電了也捨不得睡。',type:'great'},
+  {age:10,text:'第一次坐高鐵，把臉貼在窗玻璃上，看著窗外的田野一片片飛過去。',type:'normal'},
+  {age:11,text:'奶奶過世，是你第一次在葬禮上站著，不知道該哭還是該站著。',type:'bad'},
+  {age:9,text:'學校運動會跑了第一名，媽媽在終點線那頭跳起來。',type:'great'},
+  {age:12,text:'第一次騎腳踏車，摔了七次，第八次終於成功，膝蓋破皮三處。',type:'normal'},
+  {age:7,text:'睡前爸爸說故事，說著說著他先睡著了，你盯著天花板想了很久。',type:'normal'},
+  {age:8,text:'發現爸媽也會哭，那天之後你開始覺得大人也只是人。',type:'bad'},
+  {age:12,text:'在廢棄空地和朋友蓋了一個秘密基地，被大雨沖垮的那天大家都笑了。',type:'great'},
+  {age:9,text:'第一次自己搭公車，坐過站了，在陌生的街上站了很久才鼓起勇氣問路。',type:'normal'},
+  {age:10,text:'偷看了一本不該看的書，從此覺得世界比想像中複雜很多。',type:'normal'},
+  {age:11,text:'第一次離家參加夏令營，哭著打電話回家，第三天開始覺得好玩。',type:'normal'},
 ],
-
-teen: [
-  {age:13, text:'國中第一天，發現沒有一個小學同學分到同班，覺得世界重新開始。', type:'normal'},
-  {age:14, text:'模擬考考砸，被老師當眾點名，臉紅了整整一節課。', type:'bad'},
-  {age:15, text:'初戀，傳了三個月簡訊，最後什麼都沒說出口，對方就轉學了。', type:'normal'},
-  {age:16, text:'和朋友組了樂團，第一次在班上表演，全場安靜了三秒，然後爆出掌聲。', type:'great'},
-  {age:17, text:'第一次打工，在便利商店站了整晚，領到薪水請家人吃飯。', type:'great'},
-  {age:18, text:'大學考試前夕通宵讀書，天亮後走出圖書館，發現世界繼續在轉。', type:'normal'},
-  {age:16, text:'和死黨騎腳踏車環島，回來瘦了三公斤，留下一輩子的故事。', type:'great'},
-  {age:17, text:'偷偷翹課去看演唱會，回家被爸爸罵了一個小時，但覺得值得。', type:'normal'},
-  {age:15, text:'第一次喝酒，在朋友家的屋頂，吐了，但覺得自己長大了。', type:'normal'},
-  {age:16, text:'老師說你有天分，那句話你記了很多年，好幾次快放棄時想起來。', type:'great'},
-  {age:14, text:'爸爸失業，家裡安靜了很長一段時間，你開始省著用零用錢。', type:'bad'},
-  {age:17, text:'第一次投稿被退稿，編輯寫了三行退稿理由，你看了十幾遍。', type:'bad'},
-  {age:18, text:'高中最後一天，在走廊和同學拍了很多照片，那時還不知道有些人這輩子不會再見。', type:'normal'},
-  {age:15, text:'參加辯論社，第一次在台上說服了所有人，發現語言可以很有力量。', type:'great'},
-  {age:16, text:'暗戀了兩年的人交了別人，你一個人去吃了一碗大碗牛肉麵。', type:'bad'},
-  {age:17, text:'第一次一個人旅行，去了一個沒有人認識你的城市，覺得自由。', type:'great'},
-  {age:14, text:'第一次在學校圖書館待到閉館，那本書你一口氣讀完，走出去天已經黑了。', type:'normal'},
-  {age:18, text:'畢業旅行，最後一個晚上沒有人睡，聊到天亮，說了很多以後可能再也沒說出口的話。', type:'great'},
+teen:[
+  {age:13,text:'國中第一天，沒有一個小學同學分到同班，覺得世界重新開始。',type:'normal'},
+  {age:14,text:'模擬考考砸，被老師當眾點名，臉紅了整整一節課。',type:'bad'},
+  {age:15,text:'初戀，傳了三個月簡訊，最後什麼都沒說出口，對方就轉學了。',type:'normal'},
+  {age:16,text:'和朋友組了樂團，第一次在班上表演，全場安靜了三秒，然後爆出掌聲。',type:'great'},
+  {age:17,text:'第一次打工，在便利商店站了整晚，領到薪水請家人吃飯。',type:'great'},
+  {age:18,text:'大學考試前夕通宵讀書，天亮後走出圖書館，發現世界繼續在轉。',type:'normal'},
+  {age:16,text:'和死黨騎腳踏車環島，回來瘦了三公斤，留下一輩子的故事。',type:'great'},
+  {age:17,text:'偷偷翹課去看演唱會，回家被爸爸罵了一個小時，但覺得值得。',type:'normal'},
+  {age:16,text:'老師說你有天分，那句話你記了很多年，好幾次快放棄時想起來。',type:'great'},
+  {age:14,text:'爸爸失業，家裡安靜了很長一段時間，你開始省著用零用錢。',type:'bad'},
+  {age:17,text:'第一次投稿被退稿，編輯寫了三行退稿理由，你看了十幾遍。',type:'bad'},
+  {age:18,text:'高中最後一天，在走廊和同學拍了很多照片，那時還不知道有些人這輩子不會再見。',type:'normal'},
+  {age:15,text:'參加辯論社，第一次在台上說服了所有人，發現語言可以很有力量。',type:'great'},
+  {age:16,text:'暗戀了兩年的人交了別人，你一個人去吃了一碗大碗牛肉麵。',type:'bad'},
+  {age:17,text:'第一次一個人旅行，去了一個沒有人認識你的城市，覺得自由。',type:'great'},
+  {age:14,text:'第一次在學校圖書館待到閉館，那本書你一口氣讀完，走出去天已經黑了。',type:'normal'},
+  {age:18,text:'畢業旅行最後一晚，沒有人睡，聊到天亮，說了很多以後可能再也沒說出口的話。',type:'great'},
+  {age:15,text:'家裡有人問你長大要做什麼，你說了一個答案，但那不是真正想說的。',type:'bad'},
 ],
-
-young: {
+young:{
   university:[
-    {age:19, text:'大一第一週，在宿舍走廊遇到室友，說了聲你好，開始了四年的緣分。', type:'normal'},
-    {age:20, text:'加入創業社，做了一個沒人用的 App，但學到很多。', type:'normal'},
-    {age:20, text:'第一次期中考當掉，坐在操場上發呆了一個下午。', type:'bad'},
-    {age:21, text:'教授說你的報告很有潛力，那句話讓你撐過了好幾段低潮。', type:'great'},
-    {age:21, text:'大三去交換，在異國的教室裡第一次覺得自己很小，世界很大。', type:'great'},
-    {age:22, text:'論文最後一週，在系館從晚上熬到天亮，走出去看到第一班公車。', type:'normal'},
-    {age:22, text:'畢業典禮，爸媽在台下偷哭，你假裝沒看見，其實也快哭了。', type:'great'},
-    {age:20, text:'加入社運，第一次站上街頭，喊著口號，聲音有點抖。', type:'normal'},
-    {age:21, text:'在圖書館認識了一個人，借了她一支筆，後來還了，但沒有要到聯絡方式。', type:'normal'},
-    {age:19, text:'大一暑假打工存了第一筆錢，買了人生第一台筆電。', type:'great'},
+    {age:19,text:'大一第一週，在宿舍走廊遇到室友，說了聲你好，開始了四年的緣分。',type:'normal'},
+    {age:20,text:'加入創業社，做了一個沒人用的 App，但學到很多。',type:'normal'},
+    {age:20,text:'第一次期中考當掉，坐在操場上發呆了一個下午。',type:'bad'},
+    {age:21,text:'教授說你的報告很有潛力，那句話讓你撐過了好幾段低潮。',type:'great'},
+    {age:21,text:'大三去交換，在異國的教室裡第一次覺得自己很小，世界很大。',type:'great'},
+    {age:22,text:'論文最後一週，在系館從晚上熬到天亮，走出去看到第一班公車。',type:'normal'},
+    {age:22,text:'畢業典禮，爸媽在台下偷哭，你假裝沒看見，其實也快哭了。',type:'great'},
+    {age:19,text:'大一暑假打工存了第一筆錢，買了人生第一台筆電。',type:'great'},
+    {age:21,text:'在圖書館認識了一個人，借了她一支筆，後來還了，但沒有要到聯絡方式。',type:'normal'},
+    {age:20,text:'期末考前，第一次認真想：這是我想讀的嗎？想了一晚上，沒有答案。',type:'bad'},
   ],
   tech:[
-    {age:18, text:'考上技職院校，跟著師傅學技術，雙手逐漸長出繭。', type:'normal'},
-    {age:19, text:'實習期間搞砸了一個案子，師傅沒有罵你，只說「重來」。', type:'bad'},
-    {age:20, text:'同學問你為什麼不去讀大學，你說不出口的是：家裡負擔不起。', type:'bad'},
-    {age:21, text:'取得第一張技術證照，收到正式錄取通知，存到人生第一個十萬。', type:'great'},
-    {age:20, text:'在工廠實習，第一次看到自己做的零件裝上機器運作，有一種說不出的滿足。', type:'great'},
-    {age:21, text:'職訓所的老師說你有師傅的手感，你把那句話記了很久。', type:'great'},
-    {age:19, text:'第一次獨立完成一件作品，展示的時候客戶說：這個孩子行。', type:'great'},
-    {age:20, text:'同梯的朋友跑去讀大學，你繼續在工廠，有時候想，但不後悔。', type:'normal'},
-    {age:22, text:'師傅退休前把最重要的技術交給你，說你是他最好的學生。', type:'great'},
-    {age:21, text:'接到第一個自己談成的案子，金額不大，但是你自己談的。', type:'great'},
+    {age:18,text:'考上技職院校，跟著師傅學技術，雙手逐漸長出繭。',type:'normal'},
+    {age:19,text:'實習期間搞砸了一個案子，師傅沒有罵你，只說「重來」。',type:'bad'},
+    {age:21,text:'取得第一張技術證照，收到正式錄取通知，存到人生第一個十萬。',type:'great'},
+    {age:20,text:'在工廠實習，第一次看到自己做的零件裝上機器運作，有一種說不出的滿足。',type:'great'},
+    {age:21,text:'職訓所的老師說你有師傅的手感，你把那句話記了很久。',type:'great'},
+    {age:19,text:'第一次獨立完成一件作品，客戶說：這個孩子行。',type:'great'},
+    {age:20,text:'同梯的朋友跑去讀大學，你繼續在工廠，有時候想，但不後悔。',type:'normal'},
+    {age:22,text:'師傅退休前把最重要的技術交給你，說你是他最好的學生。',type:'great'},
+    {age:21,text:'接到第一個自己談成的案子，金額不大，但是你自己談的。',type:'great'},
+    {age:20,text:'同學問你為什麼不去讀大學，你沒有說出口：家裡負擔不起。',type:'bad'},
   ],
   abroad_study:[
-    {age:19, text:'獨自在異鄉，語言不通，第一週每天吃泡麵，哭著打電話回家。', type:'bad'},
-    {age:20, text:'漸漸融入異國生活，交到第一個外國朋友，開始覺得世界很大。', type:'great'},
-    {age:20, text:'第一次在課堂上用外語發表意見，說完了，全身汗。', type:'normal'},
-    {age:21, text:'在異鄉過第一個除夕，超市買了泡麵和啤酒，一個人看著窗外的雪。', type:'bad'},
-    {age:22, text:'論文答辯過了，教授握了你的手說 well done，你沒有哭，走出去才哭。', type:'great'},
-    {age:23, text:'在機場等離境，想起第一天到這裡的自己，覺得那個人好像很遠。', type:'normal'},
-    {age:23, text:'拿到學位，在機場送行，說好不哭，還是哭成一團。', type:'great'},
-    {age:21, text:'被房東趕出去，在朋友沙發上睡了兩個禮拜，找到新的地方。', type:'bad'},
-    {age:22, text:'在異國街頭遇到一個台灣人，你們用中文聊了整個下午。', type:'great'},
-    {age:20, text:'第一次在外國超市迷路，找不到你想買的東西，最後買了不知道是什麼的罐頭。', type:'normal'},
+    {age:19,text:'獨自在異鄉，語言不通，第一週每天吃泡麵，哭著打電話回家。',type:'bad'},
+    {age:20,text:'漸漸融入異國生活，交到第一個外國朋友，開始覺得世界很大。',type:'great'},
+    {age:20,text:'第一次在課堂上用外語發表意見，說完了，全身汗。',type:'normal'},
+    {age:21,text:'在異鄉過第一個除夕，超市買了泡麵和啤酒，一個人看著窗外的雪。',type:'bad'},
+    {age:22,text:'論文答辯過了，教授握了你的手說 well done，你沒有哭，走出去才哭。',type:'great'},
+    {age:23,text:'拿到學位，在機場送行，說好不哭，還是哭成一團。',type:'great'},
+    {age:21,text:'被房東趕出去，在朋友沙發上睡了兩個禮拜，找到新的地方。',type:'bad'},
+    {age:22,text:'在異國街頭遇到一個台灣人，你們用中文聊了整個下午。',type:'great'},
+    {age:23,text:'在機場等離境，想起第一天到這裡的自己，覺得那個人好像很遠。',type:'normal'},
+    {age:20,text:'第一次在外國超市迷路，買了不知道是什麼的罐頭，回家才發現是狗食。',type:'normal'},
   ],
   work_early:[
-    {age:18, text:'同學讀大學，你直接進社會，比他們早三年賺錢，也早三年看透人情。', type:'normal'},
-    {age:19, text:'職場遇到難相處的前輩，學會了在不喜歡的環境裡生存。', type:'bad'},
-    {age:20, text:'第一次被升職，加了一千塊薪水，你存起來沒有花。', type:'great'},
-    {age:21, text:'朋友大學畢業，你已經工作三年了，感覺兩個世界的人。', type:'normal'},
-    {age:22, text:'看著朋友的畢業照，心裡有一點說不清楚的感覺，但不後悔。', type:'normal'},
-    {age:19, text:'第一次在公司犯了大錯，主管把你叫進去關上門，你以為要被開除了。', type:'bad'},
-    {age:20, text:'存夠了第一桶金，在家裡的存摺上看著那個數字發呆了很久。', type:'great'},
-    {age:21, text:'比大學同學早兩年買了機車，騎著它在城市裡繞，覺得自由。', type:'great'},
-    {age:22, text:'第一次帶新人，發現自己不知不覺已經是前輩了。', type:'normal'},
-    {age:19, text:'加班到最後一個人，關燈走出辦公室，外面下著雨，忘了帶傘。', type:'bad'},
+    {age:18,text:'同學讀大學，你直接進社會，比他們早三年賺錢，也早三年看透人情。',type:'normal'},
+    {age:19,text:'職場遇到難相處的前輩，學會了在不喜歡的環境裡生存。',type:'bad'},
+    {age:20,text:'第一次被升職，加了一千塊薪水，你存起來沒有花。',type:'great'},
+    {age:21,text:'朋友大學畢業，你已經工作三年了，感覺兩個世界的人。',type:'normal'},
+    {age:22,text:'看著朋友的畢業照，心裡有一點說不清楚的感覺，但不後悔。',type:'normal'},
+    {age:19,text:'加班到最後一個人，關燈走出辦公室，外面下著雨，忘了帶傘。',type:'bad'},
+    {age:20,text:'存夠了第一桶金，在家裡的存摺上看著那個數字發呆了很久。',type:'great'},
+    {age:21,text:'比大學同學早兩年買了機車，騎著它在城市裡繞，覺得自由。',type:'great'},
+    {age:22,text:'第一次帶新人，發現自己不知不覺已經是前輩了。',type:'normal'},
+    {age:19,text:'有人問你後不後悔沒讀大學，你說沒有。那是真的嗎，你自己也不確定。',type:'bad'},
   ],
 },
-
-career: {
+career:{
   tech:[
-    {age:25, text:'進入科技公司，第一次加班到凌晨三點，搭計程車回家，在車上睡著。', type:'normal'},
-    {age:26, text:'程式碼上線當晚出了 bug，在辦公室修到天亮，喝了六罐咖啡。', type:'bad'},
-    {age:27, text:'帶領小組完成一個沒有人看好的專案，上線那天服務器撐住了。', type:'great'},
-    {age:28, text:'主導的產品上線，被老闆在全公司表揚，那晚和同事喝了一瓶慶功的啤酒。', type:'great'},
-    {age:30, text:'被同事捅刀搶功，第一次對職場感到心寒，在廁所裡站了很久。', type:'bad'},
-    {age:32, text:'帶了第一個實習生，發現自己說話的方式開始像當年的前輩。', type:'normal'},
-    {age:33, text:'公司被收購，開了很多場會議，最後留下來了，但不一樣了。', type:'bad'},
-    {age:35, text:'跳槽，薪水翻倍，突然發現原來自己值這個價。', type:'great'},
-    {age:38, text:'第一次獨立帶領整個部門，第一週晚上睡不著，第二週開始習慣。', type:'normal'},
-    {age:40, text:'後輩來問你當年怎麼撐過來的，你說了一半，有一半說不出口。', type:'normal'},
-    {age:29, text:'參加了一個矽谷的研討會，看著台上的人，覺得差距很遠又不是很遠。', type:'normal'},
-    {age:31, text:'被獵頭聯絡，拒絕了，回頭看著自己的螢幕，不確定是對的。', type:'normal'},
+    {age:25,text:'進入科技公司，第一次加班到凌晨三點，搭計程車回家，在車上睡著。',type:'normal'},
+    {age:26,text:'程式碼上線當晚出了 bug，在辦公室修到天亮，喝了六罐咖啡。',type:'bad'},
+    {age:27,text:'帶領小組完成一個沒有人看好的專案，上線那天服務器撐住了。',type:'great'},
+    {age:28,text:'主導的產品上線，被老闆在全公司表揚，那晚和同事喝了一瓶慶功的啤酒。',type:'great'},
+    {age:30,text:'被同事捅刀搶功，第一次對職場感到心寒，在廁所裡站了很久。',type:'bad'},
+    {age:32,text:'帶了第一個實習生，發現自己說話的方式開始像當年的前輩。',type:'normal'},
+    {age:33,text:'公司被收購，開了很多場會議，最後留下來了，但不一樣了。',type:'bad'},
+    {age:35,text:'跳槽，薪水翻倍，突然發現原來自己值這個價。',type:'great'},
+    {age:38,text:'第一次獨立帶領整個部門，第一週晚上睡不著，第二週開始習慣。',type:'normal'},
+    {age:40,text:'後輩來問你當年怎麼撐過來的，你說了一半，有一半說不出口。',type:'normal'},
+    {age:29,text:'深夜改完 bug，看著螢幕，突然想不起上一次好好睡一覺是什麼時候。',type:'bad'},
+    {age:31,text:'被獵頭聯絡，拒絕了，回頭看著自己的螢幕，不確定是對的。',type:'normal'},
   ],
   govt:[
-    {age:24, text:'通過公務員考試，媽媽高興到在臉書打卡，親戚全都知道了。', type:'great'},
-    {age:25, text:'第一次在縣政府開會，坐在最角落，連發言的機會都沒有。', type:'normal'},
-    {age:27, text:'承辦第一個大型活動，從籌備到結束沒睡好整整一個月。', type:'normal'},
-    {age:29, text:'被夾在長官指示和民眾需求之間，第一次覺得體制的重量。', type:'bad'},
-    {age:31, text:'幫一個老人家解決了拖了兩年的申請問題，他在窗口鞠躬說謝謝，你記了很久。', type:'great'},
-    {age:35, text:'考績甲等，沒有人特別說什麼，你把通知單放進抽屜，繼續上班。', type:'normal'},
-    {age:38, text:'業務繁瑣，開始懷疑當初的選擇，但想想退休金又繼續了。', type:'bad'},
-    {age:42, text:'帶新進同仁，發現自己說的話越來越像當年罵你的那個主管。', type:'normal'},
-    {age:45, text:'熬成資深主管，教導新人時，想起當年那個緊張的自己。', type:'great'},
-    {age:50, text:'距離退休還有十年，第一次認真想退休後要做什麼。', type:'normal'},
-    {age:30, text:'民眾在窗口大聲罵你，同事說別放心上，你說沒有，但有。', type:'bad'},
-    {age:40, text:'整理辦公室舊文件，翻到自己剛進來時寫的工作計畫，那時候想的事情都不一樣了。', type:'normal'},
+    {age:24,text:'通過公務員考試，媽媽高興到在臉書打卡，親戚全都知道了。',type:'great'},
+    {age:25,text:'第一次在縣政府開會，坐在最角落，連發言的機會都沒有。',type:'normal'},
+    {age:27,text:'承辦第一個大型活動，從籌備到結束沒睡好整整一個月。',type:'normal'},
+    {age:29,text:'被夾在長官指示和民眾需求之間，第一次覺得體制的重量。',type:'bad'},
+    {age:31,text:'幫一個老人家解決了拖了兩年的申請問題，他在窗口鞠躬說謝謝，你記了很久。',type:'great'},
+    {age:35,text:'考績甲等，沒有人特別說什麼，你把通知單放進抽屜，繼續上班。',type:'normal'},
+    {age:38,text:'業務繁瑣，開始懷疑當初的選擇，但想想退休金又繼續了。',type:'bad'},
+    {age:42,text:'帶新進同仁，發現自己說的話越來越像當年罵你的那個主管。',type:'normal'},
+    {age:45,text:'熬成資深主管，教導新人時，想起當年那個緊張的自己。',type:'great'},
+    {age:30,text:'民眾在窗口大聲罵你，同事說別放心上，你說沒有，但有。',type:'bad'},
+    {age:50,text:'距離退休還有十年，第一次認真想退休後要做什麼。',type:'normal'},
+    {age:40,text:'翻到自己剛進來時寫的工作計畫，那時候想的事情都不一樣了。',type:'normal'},
   ],
   business:[
-    {age:25, text:'辭掉工作創業，爸媽說你瘋了，你沒有反駁。', type:'normal'},
-    {age:26, text:'第一間公司倒閉，負債一百萬，在空辦公室坐了很久，然後站起來走出去。', type:'bad'},
-    {age:27, text:'借住朋友家的客廳，白天繼續找投資人，晚上看著天花板想下一步。', type:'bad'},
-    {age:28, text:'捲土重來，第二間公司開始有穩定客戶，每月勉強打平。', type:'normal'},
-    {age:29, text:'第一次給員工發薪水，帳戶的錢差點不夠，但最後夠了。', type:'normal'},
-    {age:31, text:'投資人撤資，當晚你在辦公室一個人，把所有燈都關掉坐著。', type:'bad'},
-    {age:33, text:'被媒體專訪，投資人主動找上門，那天你坐在辦公室哭了很久。', type:'great'},
-    {age:35, text:'公司規模到了一百人，突然發現你已經不認識所有員工的名字了。', type:'normal'},
-    {age:38, text:'第一次真正賺到錢，不知道為什麼站在銀行外面發呆了很久。', type:'great'},
-    {age:40, text:'老員工離職，寫了一封信說謝謝你給他這份工作，你回信寫了很長。', type:'normal'},
-    {age:30, text:'競爭對手抄了你的產品，你氣了三天，第四天決定做得更好。', type:'bad'},
-    {age:36, text:'有人出很高的價格要買下公司，你拒絕了，不確定是對的，但那是你的。', type:'normal'},
+    {age:25,text:'辭掉工作創業，爸媽說你瘋了，你沒有反駁。',type:'normal'},
+    {age:26,text:'第一間公司倒閉，負債一百萬，在空辦公室坐了很久，然後站起來走出去。',type:'bad'},
+    {age:27,text:'借住朋友家的客廳，白天繼續找投資人，晚上看著天花板想下一步。',type:'bad'},
+    {age:28,text:'捲土重來，第二間公司開始有穩定客戶，每月勉強打平。',type:'normal'},
+    {age:29,text:'第一次給員工發薪水，帳戶的錢差點不夠，但最後夠了。',type:'normal'},
+    {age:31,text:'投資人撤資，當晚你在辦公室一個人，把所有燈都關掉坐著。',type:'bad'},
+    {age:33,text:'被媒體專訪，投資人主動找上門，那天你坐在辦公室哭了很久。',type:'great'},
+    {age:35,text:'公司規模到了一百人，突然發現你已經不認識所有員工的名字了。',type:'normal'},
+    {age:38,text:'第一次真正賺到錢，不知道為什麼站在銀行外面發呆了很久。',type:'great'},
+    {age:30,text:'競爭對手抄了你的產品，你氣了三天，第四天決定做得更好。',type:'bad'},
+    {age:36,text:'有人出很高的價格要買下公司，你拒絕了，不確定是對的，但那是你的。',type:'normal'},
+    {age:40,text:'老員工離職，寫了一封信說謝謝你給他這份工作，你回信寫了很長。',type:'normal'},
   ],
   art:[
-    {age:23, text:'第一件作品入選小型展覽，開幕夜賣掉一件，靠打工維持創作生活。', type:'normal'},
-    {age:24, text:'在咖啡廳打工，每天下班後回家創作，有時候凌晨三點還沒睡。', type:'normal'},
-    {age:25, text:'作品被評審說「技術還不夠成熟」，你把那句話抄在牆上，每天看。', type:'bad'},
-    {age:27, text:'連續三年沒有突破，一度想放棄，靠老師的一句話撐了下來。', type:'bad'},
-    {age:28, text:'申請到藝術駐村，在一個陌生的城市住了三個月，什麼都沒做出來，但想通了很多事。', type:'normal'},
-    {age:29, text:'第一次個展，觀眾不多，但有一個老人看了很久，臨走前說了一聲「謝謝」。', type:'great'},
-    {age:31, text:'作品被一個收藏家買走，你站在空白的牆前面，覺得高興又有點空。', type:'great'},
-    {age:32, text:'一件作品在網路爆紅，一夕之間多了十萬追蹤者，人生開始不同。', type:'great'},
-    {age:34, text:'開始有人找你演講，你說自己不會說話，主辦說沒關係，你還是去了。', type:'normal'},
-    {age:36, text:'接了一個大型委託案，完成的那天你看著作品，不知道自己喜不喜歡。', type:'normal'},
-    {age:30, text:'朋友開始有穩定工作買房，你還住在租來的小套房，不羨慕，但偶爾會想。', type:'bad'},
-    {age:38, text:'有學生說你的作品影響了他，你不知道說什麼，最後說了謝謝你告訴我。', type:'great'},
+    {age:23,text:'第一件作品入選小型展覽，開幕夜賣掉一件，靠打工維持創作生活。',type:'normal'},
+    {age:24,text:'在咖啡廳打工，每天下班後回家創作，有時候凌晨三點還沒睡。',type:'normal'},
+    {age:25,text:'作品被評審說「技術還不夠成熟」，你把那句話抄在牆上，每天看。',type:'bad'},
+    {age:27,text:'連續三年沒有突破，一度想放棄，靠老師的一句話撐了下來。',type:'bad'},
+    {age:29,text:'第一次個展，觀眾不多，但有一個老人看了很久，臨走前說了一聲「謝謝」。',type:'great'},
+    {age:31,text:'作品被一個收藏家買走，你站在空白的牆前面，覺得高興又有點空。',type:'great'},
+    {age:32,text:'一件作品在網路爆紅，一夕之間多了十萬追蹤者，人生開始不同。',type:'great'},
+    {age:30,text:'朋友開始有穩定工作買房，你還住在租來的小套房，不羨慕，但偶爾會想。',type:'bad'},
+    {age:34,text:'開始有人找你演講，你說自己不會說話，主辦說沒關係，你還是去了。',type:'normal'},
+    {age:38,text:'有學生說你的作品影響了他，你不知道說什麼，最後說了謝謝你告訴我。',type:'great'},
+    {age:36,text:'接了一個大型委託案，完成的那天你看著作品，不知道自己喜不喜歡。',type:'normal'},
+    {age:28,text:'申請到藝術駐村，在陌生的城市住了三個月，什麼都沒做出來，但想通了很多事。',type:'normal'},
   ],
   medical:[
-    {age:25, text:'醫學院或護理系畢業，白袍典禮上，家人哭得比你還大聲。', type:'great'},
-    {age:26, text:'第一次值大夜班，天亮走出醫院，陽光刺眼，腿軟卻說不出累。', type:'normal'},
-    {age:27, text:'失去第一個病人，在更衣室坐了很久，沒有哭，只是發呆。', type:'bad'},
-    {age:28, text:'病人家屬在走廊大聲指責，你站著聽完，轉身回去繼續工作。', type:'bad'},
-    {age:29, text:'救回一個所有人都不看好的病人，查房的時候他認出你，叫了你的名字。', type:'great'},
-    {age:31, text:'第一次獨立主刀，手術室的燈很亮，你的手很穩。', type:'great'},
-    {age:33, text:'同學在科技業賺得比你多很多，你想了一晚上，隔天還是去上班了。', type:'normal'},
-    {age:35, text:'病人康復出院，塞給你一袋土鳳梨酥說謝謝，那天特別好吃。', type:'great'},
-    {age:38, text:'開始帶住院醫師，發現教別人的過程裡，自己也學到了很多。', type:'great'},
-    {age:40, text:'有一個病人走了，是你看了好幾年的老人，你去送了最後一程。', type:'bad'},
-    {age:36, text:'被評選為病房最受信任的醫師，你把獎牌放在抽屜裡，沒有掛出來。', type:'great'},
-    {age:42, text:'身體開始出現疲勞的訊號，醫生看著自己的檢查報告，有點諷刺。', type:'bad'},
+    {age:25,text:'白袍典禮上，家人哭得比你還大聲。',type:'great'},
+    {age:26,text:'第一次值大夜班，天亮走出醫院，陽光刺眼，腿軟卻說不出累。',type:'normal'},
+    {age:27,text:'失去第一個病人，在更衣室坐了很久，沒有哭，只是發呆。',type:'bad'},
+    {age:28,text:'病人家屬在走廊大聲指責，你站著聽完，轉身回去繼續工作。',type:'bad'},
+    {age:29,text:'救回一個所有人都不看好的病人，查房的時候他認出你，叫了你的名字。',type:'great'},
+    {age:31,text:'第一次獨立主刀，手術室的燈很亮，你的手很穩。',type:'great'},
+    {age:33,text:'同學在科技業賺得比你多很多，你想了一晚上，隔天還是去上班了。',type:'normal'},
+    {age:35,text:'病人康復出院，塞給你一袋土鳳梨酥說謝謝，那天特別好吃。',type:'great'},
+    {age:38,text:'開始帶住院醫師，發現教別人的過程裡，自己也學到了很多。',type:'great'},
+    {age:40,text:'有一個病人走了，是你看了好幾年的老人，你去送了最後一程。',type:'bad'},
+    {age:36,text:'被評選為病房最受信任的醫師，你把獎牌放在抽屜裡，沒有掛出來。',type:'great'},
+    {age:42,text:'身體開始出現疲勞的訊號，醫生看著自己的檢查報告，有點諷刺。',type:'bad'},
   ],
 },
-
-love: {
+love:{
   early:[
-    {age:25, text:'認識三個月就決定在一起，朋友說太快，你說感覺對了就是對了。', type:'normal'},
-    {age:26, text:'閃婚，婚禮上每個人都說太衝動，你和另一半相視而笑。', type:'normal'},
-    {age:28, text:'有了第一個孩子，深夜餵奶，又累又幸福，不知道哪個感覺更真實。', type:'great'},
-    {age:30, text:'第一次和另一半大吵，三天沒說話，第四天一起去吃了火鍋，什麼都沒說，但和好了。', type:'normal'},
-    {age:33, text:'孩子第一次叫你，你愣了一秒才反應過來，那個瞬間記了很久。', type:'great'},
-    {age:35, text:'為了孩子的教育和另一半吵了一架，第一次感覺到兩個人的世界觀不太一樣。', type:'bad'},
-    {age:38, text:'結婚十週年，你們去了當年第一次約會的地方，菜單換了，但還是點了一樣的東西。', type:'great'},
-    {age:40, text:'孩子開始有自己的秘密，你記起自己也是這樣和父母漸漸有了距離。', type:'normal'},
-    {age:42, text:'另一半生病住院，你第一次體會到兩個人在一起是什麼意思。', type:'bad'},
-    {age:45, text:'孩子說長大不想做你做的事，你說好，心裡有點空，但也有點鬆。', type:'normal'},
+    {age:25,text:'認識三個月就決定在一起，朋友說太快，你說感覺對了就是對了。',type:'normal'},
+    {age:26,text:'閃婚，婚禮上每個人都說太衝動，你和另一半相視而笑。',type:'normal'},
+    {age:28,text:'有了第一個孩子，深夜餵奶，又累又幸福，不知道哪個感覺更真實。',type:'great'},
+    {age:30,text:'第一次和另一半大吵，三天沒說話，第四天一起去吃了火鍋，什麼都沒說，但和好了。',type:'normal'},
+    {age:33,text:'孩子第一次叫你，你愣了一秒才反應過來，那個瞬間記了很久。',type:'great'},
+    {age:35,text:'為了孩子的教育和另一半吵了一架，第一次感覺到兩個人的世界觀不太一樣。',type:'bad'},
+    {age:38,text:'結婚十週年，你們去了當年第一次約會的地方，菜單換了，但還是點了一樣的東西。',type:'great'},
+    {age:40,text:'孩子開始有自己的秘密，你記起自己也是這樣和父母漸漸有了距離。',type:'normal'},
+    {age:42,text:'另一半生病住院，你第一次體會到兩個人在一起是什麼意思。',type:'bad'},
+    {age:45,text:'孩子說長大不想做你做的事，你說好，心裡有點空，但也有點鬆。',type:'normal'},
   ],
   late:[
-    {age:28, text:'被催婚好幾次，每次只是笑笑說緣分未到，連自己都不確定相不相信。', type:'normal'},
-    {age:30, text:'交了一段感情，三年後和平分開，你問自己後不後悔，沒有答案。', type:'normal'},
-    {age:33, text:'相親了十幾次，第十四次的對象說你有點難懂，你覺得他說得對。', type:'normal'},
-    {age:35, text:'遇到對的人，想起所有等待的時光，突然覺得都值得了。', type:'great'},
-    {age:37, text:'兩個人去登記結婚，只有一個見證人，簡單得像在辦公事，卻覺得剛好。', type:'normal'},
-    {age:39, text:'決定不生孩子，告訴父母的那天說了很久，最後爸媽說只要你們好就好。', type:'normal'},
-    {age:42, text:'和另一半第一次真正大吵，吵完之後兩個人都笑了，說原來我們也會這樣。', type:'normal'},
-    {age:45, text:'兩個人一起去了年輕時各自想去的地方，回來後覺得還好有等到對的人。', type:'great'},
-    {age:50, text:'另一半說你這幾年變了很多，你問變好還是變壞，他說都有。', type:'normal'},
-    {age:55, text:'你們吵架的次數越來越少，不是因為沒有意見，是因為知道怎麼說了。', type:'great'},
+    {age:28,text:'被催婚好幾次，每次只是笑笑說緣分未到，連自己都不確定相不相信。',type:'normal'},
+    {age:30,text:'交了一段感情，三年後和平分開，你問自己後不後悔，沒有答案。',type:'normal'},
+    {age:35,text:'遇到對的人，想起所有等待的時光，突然覺得都值得了。',type:'great'},
+    {age:37,text:'兩個人去登記結婚，只有一個見證人，簡單得像在辦公事，卻覺得剛好。',type:'normal'},
+    {age:39,text:'決定不生孩子，告訴父母的那天說了很久，最後爸媽說只要你們好就好。',type:'normal'},
+    {age:42,text:'和另一半第一次真正大吵，吵完之後兩個人都笑了，說原來我們也會這樣。',type:'normal'},
+    {age:45,text:'兩個人一起去了年輕時各自想去的地方，回來後覺得還好有等到對的人。',type:'great'},
+    {age:50,text:'另一半說你這幾年變了很多，你問變好還是變壞，他說都有。',type:'normal'},
+    {age:55,text:'你們吵架的次數越來越少，不是因為沒有意見，是因為知道怎麼說了。',type:'great'},
+    {age:33,text:'相親了十幾次，第十四次的對象說你有點難懂，你覺得他說得對。',type:'normal'},
   ],
   single:[
-    {age:26, text:'又一個朋友結婚，婚禮上你坐在角落，喝了兩杯，覺得挺好的。', type:'normal'},
-    {age:28, text:'有人問你為什麼不找，你說不知道，其實你知道，只是說不清楚。', type:'normal'},
-    {age:30, text:'第一次一個人出國旅行，在某個廣場坐了一個下午，覺得這樣也挺好。', type:'great'},
-    {age:32, text:'喜歡過一個人，沒有說出口，後來他去了別的城市，你偶爾還會想起來。', type:'bad'},
-    {age:35, text:'建立了自己獨特的生活節奏，週末有自己的咖啡館，有自己的路線。', type:'great'},
-    {age:38, text:'朋友離婚了，打電話來說想談談，你說好，聽了整個晚上。', type:'normal'},
-    {age:40, text:'有人問你後不後悔，你說沒有，說完覺得這是真的。', type:'great'},
-    {age:42, text:'一個人去看了父母年輕時喜歡的那部電影，看完走出來，夜風很涼。', type:'normal'},
-    {age:45, text:'在老家的房間發現了一封沒有寄出的信，那是你二十歲寫的，收件人你已經不記得了。', type:'normal'},
-    {age:50, text:'你慢慢發現孤獨和寂寞是不一樣的東西，你有時候孤獨，但很少寂寞。', type:'great'},
+    {age:26,text:'又一個朋友結婚，婚禮上你坐在角落，喝了兩杯，覺得挺好的。',type:'normal'},
+    {age:28,text:'有人問你為什麼不找，你說不知道，其實你知道，只是說不清楚。',type:'normal'},
+    {age:30,text:'第一次一個人出國旅行，在某個廣場坐了一個下午，覺得這樣也挺好。',type:'great'},
+    {age:32,text:'喜歡過一個人，沒有說出口，後來他去了別的城市，你偶爾還會想起來。',type:'bad'},
+    {age:35,text:'建立了自己獨特的生活節奏，週末有自己的咖啡館，有自己的路線。',type:'great'},
+    {age:38,text:'朋友離婚了，打電話來說想談談，你說好，聽了整個晚上。',type:'normal'},
+    {age:40,text:'有人問你後不後悔，你說沒有，說完覺得這是真的。',type:'great'},
+    {age:45,text:'在老家的房間發現了一封沒有寄出的信，那是你二十歲寫的，收件人你已經不記得了。',type:'normal'},
+    {age:50,text:'你慢慢發現孤獨和寂寞是不一樣的東西，你有時候孤獨，但很少寂寞。',type:'great'},
+    {age:42,text:'一個人去看了父母年輕時喜歡的那部電影，看完走出來，夜風很涼。',type:'normal'},
   ],
   multiple:[
-    {age:22, text:'第一段認真的感情，兩年後分手，對方說你還沒長大，你沉默，覺得他說得對。', type:'bad'},
-    {age:25, text:'第二段感情，你比上次更努力，還是沒能在一起，這次是你先說的。', type:'normal'},
-    {age:27, text:'失戀之後在便利商店買了很多零食，一個人看了一整晚的電影。', type:'bad'},
-    {age:29, text:'交了一個很不一樣的人，你覺得自己終於改變了，後來發現沒有。', type:'normal'},
-    {age:31, text:'在舊戀人的婚禮上，真心祝福他幸福，走出去，天空很藍。', type:'normal'},
-    {age:33, text:'遇到一個人，說不清楚為什麼，和他在一起你不需要演。', type:'great'},
-    {age:35, text:'這段感情維持了很久，你開始相信有些事情是需要時間的。', type:'great'},
-    {age:38, text:'另一半說你比以前好說話了，你想了一下，覺得是真的。', type:'great'},
-    {age:40, text:'回頭看那些結束的感情，第一次覺得都是必要的過程。', type:'normal'},
-    {age:42, text:'有人問你怎麼走過那些，你說一次一次，沒有別的方法。', type:'normal'},
+    {age:22,text:'第一段認真的感情，兩年後分手，對方說你還沒長大，你沉默，覺得他說得對。',type:'bad'},
+    {age:25,text:'第二段感情，你比上次更努力，還是沒能在一起，這次是你先說的。',type:'normal'},
+    {age:27,text:'失戀之後在便利商店買了很多零食，一個人看了一整晚的電影。',type:'bad'},
+    {age:29,text:'交了一個很不一樣的人，你覺得自己終於改變了，後來發現沒有。',type:'normal'},
+    {age:31,text:'在舊戀人的婚禮上，真心祝福他幸福，走出去，天空很藍。',type:'normal'},
+    {age:33,text:'遇到一個人，說不清楚為什麼，和他在一起你不需要演。',type:'great'},
+    {age:35,text:'這段感情維持了很久，你開始相信有些事情是需要時間的。',type:'great'},
+    {age:38,text:'另一半說你比以前好說話了，你想了一下，覺得是真的。',type:'great'},
+    {age:40,text:'回頭看那些結束的感情，第一次覺得都是必要的過程。',type:'normal'},
+    {age:42,text:'有人問你怎麼走過那些，你說一次一次，沒有別的方法。',type:'normal'},
   ],
 },
-
 middle:[
-  {age:42, text:'父親生病住院，才發現他背已經駝了，手上全是老人斑，不知道什麼時候的事。', type:'bad'},
-  {age:45, text:'升上主管，接到通知那晚一個人喝了點酒，不確定是慶幸還是害怕。', type:'great'},
-  {age:43, text:'健康檢查紅字一堆，醫生說要注意，你回家扔掉所有宵夜存貨。', type:'normal'},
-  {age:51, text:'孩子離家讀大學，家裡突然安靜很多，你把他房間打掃了兩次才停下來。', type:'normal'},
-  {age:47, text:'老朋友因病走了，你去送了最後一程，回家一個人坐在黑暗裡很久。', type:'bad'},
-  {age:52, text:'出版了一本書，印了一千本，賣掉八百本，剩下兩百本堆在客廳。', type:'great'},
-  {age:55, text:'陪媽媽去她一直說想去的地方，她說這輩子沒有遺憾了，你靜靜地握著她的手。', type:'great'},
-  {age:48, text:'公司大裁員，你留下來了，但辦公室空了一半，氣氛變得不一樣。', type:'bad'},
-  {age:44, text:'開始睡不好，在床上看著天花板想了很多，大多數是沒有答案的問題。', type:'bad'},
-  {age:53, text:'第一次帶孫子出門，他把手放進你的手心，你感覺那個重量很輕又很重。', type:'great'},
-  {age:46, text:'整理家裡舊東西，翻出一張二十歲的照片，和那個人對看了很久。', type:'normal'},
-  {age:50, text:'同學會，大家都老了，還是笑著吵著說當年的事，好像時間沒有動。', type:'great'},
-  {age:54, text:'母親不記得你的名字了，你告訴她，她說喔，點了頭，繼續看窗外。', type:'bad'},
-  {age:49, text:'買了一直想買的東西，放在那裡，第三天發現自己幾乎沒有看它。', type:'normal'},
-  {age:56, text:'孩子打電話回來說要帶人回家，你假裝淡定，掛掉電話才高興起來。', type:'great'},
-  {age:41, text:'開始跑步，第一次跑完五公里，站在路邊喘著氣，覺得身體還在。', type:'great'},
-  {age:58, text:'快退休了，開始有人問你退休後要做什麼，你說不知道，是真的不知道。', type:'normal'},
-  {age:45, text:'第一次認真想到死這件事，不是害怕，只是想了一下，然後繼續過日子。', type:'normal'},
+  {age:42,text:'父親生病住院，才發現他背已經駝了，手上全是老人斑，不知道什麼時候的事。',type:'bad'},
+  {age:45,text:'升上主管，接到通知那晚一個人喝了點酒，不確定是慶幸還是害怕。',type:'great'},
+  {age:43,text:'健康檢查紅字一堆，醫生說要注意，你回家扔掉所有宵夜存貨。',type:'normal'},
+  {age:51,text:'孩子離家讀大學，家裡突然安靜很多，你把他房間打掃了兩次才停下來。',type:'normal'},
+  {age:47,text:'老朋友因病走了，你去送了最後一程，回家一個人坐在黑暗裡很久。',type:'bad'},
+  {age:52,text:'出版了一本書，印了一千本，賣掉八百本，剩下兩百本堆在客廳。',type:'great'},
+  {age:55,text:'陪媽媽去她一直說想去的地方，她說這輩子沒有遺憾了，你靜靜地握著她的手。',type:'great'},
+  {age:48,text:'公司大裁員，你留下來了，但辦公室空了一半，氣氛變得不一樣。',type:'bad'},
+  {age:44,text:'開始睡不好，在床上看著天花板想了很多，大多數是沒有答案的問題。',type:'bad'},
+  {age:53,text:'第一次帶孫子出門，他把手放進你的手心，你感覺那個重量很輕又很重。',type:'great'},
+  {age:46,text:'整理家裡舊東西，翻出一張二十歲的照片，和那個人對看了很久。',type:'normal'},
+  {age:50,text:'同學會，大家都老了，還是笑著吵著說當年的事，好像時間沒有動。',type:'great'},
+  {age:54,text:'母親不記得你的名字了，你告訴她，她說喔，點了頭，繼續看窗外。',type:'bad'},
+  {age:56,text:'孩子打電話回來說要帶人回家，你假裝淡定，掛掉電話才高興起來。',type:'great'},
+  {age:41,text:'開始跑步，第一次跑完五公里，站在路邊喘著氣，覺得身體還在。',type:'great'},
+  {age:58,text:'快退休了，開始有人問你退休後要做什麼，你說不知道，是真的不知道。',type:'normal'},
+  {age:45,text:'有一天突然想到：這麼多年，有沒有人問過你「你還好嗎」？',type:'bad'},
+  {age:49,text:'買了一直想買的東西，放在那裡，第三天發現自己幾乎沒有看它。',type:'normal'},
 ],
-
 old:[
-  {age:65, text:'退休後第一天，睡到自然醒，坐在客廳發了半天呆，不知道接下來怎麼辦。', type:'normal'},
-  {age:66, text:'開始每天早上去公園散步，認識了幾個固定在那裡的老人，慢慢變成朋友。', type:'great'},
-  {age:67, text:'學水彩，畫得很糟，老師說你有天分，你知道他在說好聽話，還是繼續畫。', type:'great'},
-  {age:68, text:'孫子問你年輕的時候是什麼樣子，你說了很久，他聽著聽著睡著了。', type:'normal'},
-  {age:70, text:'膝蓋開始疼，爬樓梯要扶著牆，第一次認真感覺到身體在說話。', type:'bad'},
-  {age:71, text:'老朋友聚會，大家都老了，笑起來卻還是三十年前的樣子。', type:'great'},
-  {age:73, text:'孫子第一次叫你，你假裝沒聽見，讓他多叫兩聲，心裡偷偷笑了。', type:'great'},
-  {age:75, text:'整理舊照片，想起很多已經想不起名字的臉，卻記得每個當下的感覺。', type:'normal'},
-  {age:76, text:'老伴說你這幾年說話輕多了，你想了很久，說是因為不急了。', type:'great'},
-  {age:78, text:'走不太動了，開始在窗邊坐著，窗外的樹每天都在，你開始注意到它。', type:'normal'},
-  {age:80, text:'孩子要你搬去同住，你說再等等，不是不願意，是還想在自己的地方多待一陣子。', type:'normal'},
-  {age:72, text:'第一次讀年輕時沒有讀完的書，讀完了，關上書，窗外的光很好。', type:'great'},
-  {age:69, text:'開始種菜，種壞了好幾次，第一次長出來的番茄很小，但你吃了很久。', type:'great'},
-  {age:74, text:'有個老朋友突然走了，沒有預兆，上禮拜才通過電話，你說我們找個時間見面，沒見成。', type:'bad'},
-  {age:79, text:'寫了一封信給年輕的自己，寫完了收起來，沒有給任何人看。', type:'normal'},
-  {age:82, text:'有一天早上醒來，覺得活到現在其實已經很夠了，那是一種很平靜的感覺。', type:'great'},
+  {age:65,text:'退休後第一天，睡到自然醒，坐在客廳發了半天呆，不知道接下來怎麼辦。',type:'normal'},
+  {age:66,text:'開始每天早上去公園散步，認識了幾個固定在那裡的老人，慢慢變成朋友。',type:'great'},
+  {age:67,text:'學水彩，畫得很糟，老師說你有天分，你知道他在說好聽話，還是繼續畫。',type:'great'},
+  {age:68,text:'孫子問你年輕的時候是什麼樣子，你說了很久，他聽著聽著睡著了。',type:'normal'},
+  {age:70,text:'膝蓋開始疼，爬樓梯要扶著牆，第一次認真感覺到身體在說話。',type:'bad'},
+  {age:71,text:'老朋友聚會，大家都老了，笑起來卻還是三十年前的樣子。',type:'great'},
+  {age:73,text:'孫子第一次叫你，你假裝沒聽見，讓他多叫兩聲，心裡偷偷笑了。',type:'great'},
+  {age:75,text:'整理舊照片，想起很多已經想不起名字的臉，卻記得每個當下的感覺。',type:'normal'},
+  {age:76,text:'老伴說你這幾年說話輕多了，你想了很久，說是因為不急了。',type:'great'},
+  {age:78,text:'走不太動了，開始在窗邊坐著，窗外的樹每天都在，你開始注意到它。',type:'normal'},
+  {age:72,text:'第一次讀年輕時沒有讀完的書，讀完了，關上書，窗外的光很好。',type:'great'},
+  {age:69,text:'開始種菜，種壞了好幾次，第一次長出來的番茄很小，但你吃了很久。',type:'great'},
+  {age:74,text:'有個老朋友突然走了，沒有預兆，上禮拜才通過電話，你說我們找個時間見面，沒見成。',type:'bad'},
+  {age:79,text:'寫了一封信給年輕的自己，寫完了收起來，沒有給任何人看。',type:'normal'},
+  {age:82,text:'有一天早上醒來，覺得活到現在其實已經很夠了，那是一種很平靜的感覺。',type:'great'},
+  {age:80,text:'孩子要你搬去同住，你說再等等，不是不願意，是還想在自己的地方多待一陣子。',type:'normal'},
 ],
-
 };
 
-// ── 結局與標題 ──────────────────────────────────────────
-const ENDINGS = {
-  high:['圓滿謝幕，子孫滿堂，走得很安詳。','留下傳奇，被許多人記得很久。','無所遺憾，人生如此，已是幸運。','安然離去，那天天氣很好。'],
+const ENDINGS={
+  high:['辛苦了，你真的做到了。走得很安詳。','留下傳奇，被許多人記得很久。','無所遺憾，你活出了自己。','安然離去，那天天氣很好。'],
   mid:['平凡而完整，這也是一種圓滿。','有笑有淚，剛剛好的一生。','走得平靜，身後留下一片溫暖。','不算轟轟烈烈，但每一天都真實。'],
   low:['坎坷卻真實，這也是人生的一種。','遺憾多於圓滿，但你活過了，認真活過了。','人生如此，天命使然，你接受了。','沒有人的故事是完整的，你的也是。'],
 };
 
-const HEADLINES = {
+const HEADLINES={
   tech_rich:'富裕家庭出身的科技人', tech_mid:'工程師的平凡與不凡', tech_poor:'白手起家的程式人',
   govt_rich:'含著金湯匙的公務員', govt_mid:'穩穩走完的公職生涯', govt_poor:'窮小孩考上公務員',
   business_rich:'富二代的創業豪賭', business_mid:'中產背景的創業起落', business_poor:'一無所有才無所畏懼',
@@ -438,108 +456,105 @@ const HEADLINES = {
   medical_rich:'醫生世家的第三代', medical_mid:'白袍下的人情冷暖', medical_poor:'清寒出身的仁醫',
 };
 
-// ── 工具函式 ───────────────────────────────────────────
-function rand(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
-function rInt(a,b){ return Math.floor(Math.random()*(b-a+1))+a; }
-function pickN(arr, n){
-  const shuffled = [...arr].sort(()=>Math.random()-0.5);
-  return shuffled.slice(0, Math.min(n, shuffled.length));
-}
+// 課文反思（根據數值高低給出不同角度）
+const REFLECTIONS={
+  high:[
+    '這個人活得精采——但你有沒有問過他：「你累不累？」',
+    '數值亮眼，但弟弟的數值可能也很亮眼。\n吳念真說：他做到了，可是他很累。',
+    '看起來是成功的人生。\n可是「成功」是誰定義的？',
+  ],
+  mid:[
+    '平凡的一生。吳念真的弟弟也是平凡的，\n但他的遺書卻讓人記了一輩子。',
+    '這個人盡了人事。\n有沒有人在他最累的時候，說一句「辛苦了」？',
+    '不轟轟烈烈，但每一天都真實。\n這樣的人生，值得被看見。',
+  ],
+  low:[
+    '坎坷的人生。\n但坎坷不等於沒有意義——吳念真的弟弟教會我們這件事。',
+    '遺憾多於圓滿。\n如果有人早一點問他「你還好嗎」，會不會不一樣？',
+    '這個人很累。\n你看出來了嗎？在他還活著的時候？',
+  ],
+};
 
-// ── 個性選擇 ──────────────────────────────────────────
-let selectedTrait = 'hardworking';
+function rand(arr){return arr[Math.floor(Math.random()*arr.length)];}
+function rInt(a,b){return Math.floor(Math.random()*(b-a+1))+a;}
+function pickN(arr,n){return [...arr].sort(()=>Math.random()-0.5).slice(0,Math.min(n,arr.length));}
+
+let selectedTrait='hardworking';
 document.querySelectorAll('.chip').forEach(c=>{
   c.addEventListener('click',()=>{
     document.querySelectorAll('.chip').forEach(x=>x.classList.remove('active'));
     c.classList.add('active');
-    selectedTrait = c.dataset.val;
+    selectedTrait=c.dataset.val;
   });
 });
 
-// ── 模擬主程式 ────────────────────────────────────────
 function simulate(){
-  const bp = document.getElementById('birthplace').value;
-  const fam = document.getElementById('family').value;
-  const edu = document.getElementById('edu').value;
-  const career = document.getElementById('career').value;
-  const love = document.getElementById('love').value;
-  const trait = selectedTrait;
+  const bp=document.getElementById('birthplace').value;
+  const fam=document.getElementById('family').value;
+  const edu=document.getElementById('edu').value;
+  const career=document.getElementById('career').value;
+  const love=document.getElementById('love').value;
+  const trait=selectedTrait;
 
-  // 數值計算
-  let wealth = {rich:72,mid:48,poor:22,single:32}[fam];
-  let health = rInt(55,80);
-  let social = {city:65,suburb:55,rural:45,abroad:60}[bp];
-  let fulfill = 50;
+  let wealth={rich:72,mid:48,poor:22,single:32}[fam];
+  let health=rInt(55,80);
+  let social={city:65,suburb:55,rural:45,abroad:60}[bp];
+  let fulfill=50;
 
-  const tfx = {
-    hardworking:[15,0,0,12], lucky:[18,10,5,8], social:[-5,0,22,8],
-    creative:[-5,5,-5,22], rebel:[5,-5,-8,15], cautious:[8,15,5,0]
-  }[trait];
-  wealth+=tfx[0]; health+=tfx[1]; social+=tfx[2]; fulfill+=tfx[3];
+  const tfx={hardworking:[15,0,0,12],lucky:[18,10,5,8],social:[-5,0,22,8],creative:[-5,5,-5,22],rebel:[5,-5,-8,15],cautious:[8,15,5,0]}[trait];
+  wealth+=tfx[0];health+=tfx[1];social+=tfx[2];fulfill+=tfx[3];
 
-  const cfx = {
-    tech:[20,0,5,10], govt:[10,5,0,5],
-    business:[rInt(-15,30),0,5,15], art:[-10,0,5,22], medical:[15,10,10,15]
-  }[career];
-  wealth+=cfx[0]; health+=cfx[1]; social+=cfx[2]; fulfill+=cfx[3];
+  const cfx={tech:[20,0,5,10],govt:[10,5,0,5],business:[rInt(-15,30),0,5,15],art:[-10,0,5,22],medical:[15,10,10,15]}[career];
+  wealth+=cfx[0];health+=cfx[1];social+=cfx[2];fulfill+=cfx[3];
   if(edu==='abroad_study'){wealth+=8;social+=15;}
   if(edu==='work_early'){wealth+=5;}
 
-  const clamp = v=>Math.min(98,Math.max(8,Math.round(v)));
-  wealth=clamp(wealth); health=clamp(health); social=clamp(social); fulfill=clamp(fulfill);
+  const clamp=v=>Math.min(98,Math.max(8,Math.round(v)));
+  wealth=clamp(wealth);health=clamp(health);social=clamp(social);fulfill=clamp(fulfill);
 
-  const avg = Math.round((wealth+health+social+fulfill)/4);
-  const lifeAge = rInt(72,94)-(health<40?15:health<55?8:0)+(trait==='lucky'?5:0);
-  const ending = avg>65?rand(ENDINGS.high):avg>42?rand(ENDINGS.mid):rand(ENDINGS.low);
+  const avg=Math.round((wealth+health+social+fulfill)/4);
+  const lifeAge=rInt(72,94)-(health<40?15:health<55?8:0)+(trait==='lucky'?5:0);
+  const ending=avg>65?rand(ENDINGS.high):avg>42?rand(ENDINGS.mid):rand(ENDINGS.low);
+  const reflection=avg>65?rand(REFLECTIONS.high):avg>42?rand(REFLECTIONS.mid):rand(REFLECTIONS.low);
 
-  // 標題
-  const famKey = fam==='rich'?'rich':fam==='poor'?'poor':'mid';
-  const headline = HEADLINES[career+'_'+famKey] || HEADLINES[career+'_mid'] || '一個真實而獨特的人生';
+  const famKey=fam==='rich'?'rich':fam==='poor'?'poor':'mid';
+  const headline=HEADLINES[career+'_'+famKey]||HEADLINES[career+'_mid']||'一個真實而獨特的人生';
 
-  const famDesc = {rich:'出生在富裕家庭',mid:'在中產家庭長大',poor:'從清寒環境出發',single:'在單親家庭中成長'}[fam];
-  const traitDesc = {hardworking:'努力',lucky:'幸運',social:'社交',creative:'創意',rebel:'叛逆',cautious:'謹慎'}[trait];
-  const bpDesc = {city:'台北都市',suburb:'台中城市',rural:'雲林鄉間',abroad:'異鄉他處'}[bp];
-  const sub = `${famDesc}，帶著${traitDesc}的特質，在${bpDesc}走過這一生。`;
+  const famDesc={rich:'出生在富裕家庭',mid:'在中產家庭長大',poor:'從清寒環境出發',single:'在單親家庭中成長'}[fam];
+  const traitDesc={hardworking:'努力',lucky:'幸運',social:'社交',creative:'創意',rebel:'叛逆',cautious:'謹慎'}[trait];
+  const bpDesc={city:'台北都市',suburb:'台中城市',rural:'雲林鄉間',abroad:'異鄉他處'}[bp];
+  const sub=`${famDesc}，帶著${traitDesc}的特質，在${bpDesc}走過這一生。`;
 
-  // 事件抽取：每池抽取足夠多讓組合豐富
-  const youngPool = E.young[edu] || E.young.university;
-  const careerPool = E.career[career] || [];
-  const lovePool = E.love[love] || [];
+  const youngPool=E.young[edu]||E.young.university;
+  const careerPool=E.career[career]||[];
+  const lovePool=E.love[love]||[];
 
-  const events = [
-    ...pickN(E.childhood, 3),
-    ...pickN(E.teen, 3),
-    ...pickN(youngPool, 2),
-    ...pickN(careerPool, 3),
-    ...pickN(lovePool, 2),
-    ...pickN(E.middle, 3),
-    ...pickN(E.old, 2),
+  const events=[
+    ...pickN(E.childhood,3),...pickN(E.teen,3),
+    ...pickN(youngPool,2),...pickN(careerPool,3),
+    ...pickN(lovePool,2),...pickN(E.middle,3),...pickN(E.old,2),
   ];
 
-  // 去重 + 排序
-  const seen = new Set();
-  const sorted = events
-    .filter(e=>{ if(seen.has(e.text)) return false; seen.add(e.text); return true; })
-    .sort((a,b)=>a.age-b.age);
+  const seen=new Set();
+  const sorted=events.filter(e=>{if(seen.has(e.text))return false;seen.add(e.text);return true;}).sort((a,b)=>a.age-b.age);
 
-  // 渲染
-  document.getElementById('r-headline').textContent = headline;
-  document.getElementById('r-sub').textContent = sub;
+  document.getElementById('r-headline').textContent=headline;
+  document.getElementById('r-sub').textContent=sub;
 
-  const tagLabels = [
+  const tagLabels=[
     {rich:'富裕家庭',mid:'中產家庭',poor:'清寒出身',single:'單親家庭'}[fam],
     {tech:'科技業',govt:'公務員',business:'創業',art:'藝術',medical:'醫療'}[career],
     {hardworking:'努力型',lucky:'幸運兒',social:'社交達人',creative:'創意腦',rebel:'叛逆者',cautious:'謹慎派'}[trait],
   ];
-  document.getElementById('r-tags').innerHTML = tagLabels.map(l=>`<span class="tag">${l}</span>`).join('');
+  document.getElementById('r-tags').innerHTML=tagLabels.map(l=>`<span class="tag">${l}</span>`).join('');
 
-  const statsData = [
+  const statsData=[
     {name:'財富',val:wealth,color:'#c9a84c'},
     {name:'健康',val:health,color:'#2d9e62'},
     {name:'人際',val:social,color:'#5b9bd5'},
     {name:'成就感',val:fulfill,color:'#ba7517'},
   ];
-  document.getElementById('stats-grid').innerHTML = statsData.map(s=>`
+  document.getElementById('stats-grid').innerHTML=statsData.map(s=>`
     <div class="stat-box">
       <p class="stat-name">${s.name}</p>
       <div class="stat-bar-track"><div class="stat-bar-fill" id="bar-${s.name}" style="background:${s.color};width:0%"></div></div>
@@ -547,24 +562,22 @@ function simulate(){
     </div>`).join('');
 
   setTimeout(()=>{
-    statsData.forEach(s=>{
-      const el = document.getElementById('bar-'+s.name);
-      if(el) el.style.width = s.val+'%';
-    });
-  }, 80);
+    statsData.forEach(s=>{const el=document.getElementById('bar-'+s.name);if(el)el.style.width=s.val+'%';});
+  },80);
 
-  document.getElementById('timeline').innerHTML = sorted.map(e=>`
+  document.getElementById('timeline').innerHTML=sorted.map(e=>`
     <div class="tl-item">
       <div class="tl-dot ${e.type}"></div>
       <p class="tl-age">${e.age} 歲</p>
       <p class="tl-text">${e.text}</p>
     </div>`).join('');
 
-  document.getElementById('r-age').textContent = lifeAge + ' 歲';
-  document.getElementById('r-ending').textContent = ending;
+  document.getElementById('r-age').textContent=lifeAge+' 歲';
+  document.getElementById('r-ending').textContent=ending;
+  document.getElementById('r-reflection').textContent=reflection;
 
   document.getElementById('setup-section').style.display='none';
-  const rs = document.getElementById('result-section');
+  const rs=document.getElementById('result-section');
   rs.style.display='block';
   rs.classList.add('fade-in');
   window.scrollTo({top:0,behavior:'smooth'});
