@@ -80,7 +80,7 @@
     <p class="header-eyebrow">文學與人生 · 期末報告</p>
     <h1>人生模擬器</h1>
     <p class="header-quote">
-      「大哥，你說要當一個有用的人，<br>我做到了，可是我真的很累。」<br>
+      「大哥，你說要照顧家裡，我就比較放心。<br>不過，當你的弟弟妹妹，也很辛苦。」<br>
       <span style="font-size:11px;letter-spacing:0.2em;color:var(--gold-dim)">——吳念真〈遺書〉</span>
     </p>
   </div>
@@ -96,12 +96,12 @@
     <div class="divider"><span>起始條件（天命）</span></div>
     <div class="grid2">
       <div>
-        <label class="field-label">出生地</label>
+        <label class="field-label">成長環境</label>
         <select id="birthplace">
-          <option value="city">台北（都市）</option>
-          <option value="suburb">台中（中型城市）</option>
-          <option value="rural">雲林（鄉村）</option>
-          <option value="abroad">海外僑生</option>
+          <option value="city">都市長大</option>
+          <option value="suburb">小城市長大</option>
+          <option value="rural">鄉鎮長大</option>
+          <option value="abroad">海外長大</option>
         </select>
       </div>
       <div>
@@ -190,6 +190,42 @@
 </div>
 <script>
 const E = {
+birthplace:{
+  city:[
+    {age:8,text:'第一次搭捷運，人潮把你推著走，你緊緊抓著媽媽的手。',type:'normal'},
+    {age:10,text:'住在公寓的十二樓，颱風天看著窗外的霓虹燈搖搖晃晃，覺得好看。',type:'normal'},
+    {age:12,text:'一個人在巷口便利商店待了整個下午，那裡是你最初的自由。',type:'great'},
+    {age:9,text:'學校同班同學來自好多種背景，有人補習有人打工，你第一次知道家庭不都一樣。',type:'normal'},
+    {age:11,text:'在圖書館辦了第一張借書證，那個下午你借了五本，全部看完了。',type:'great'},
+    {age:13,text:'在城市裡長大，卻在一次鄉下親戚家看到滿天星星，那是你沒見過的天空。',type:'great'},
+  ],
+  suburb:[
+    {age:8,text:'騎腳踏車可以到的地方就是整個世界，你把附近每條巷子都騎遍了。',type:'great'},
+    {age:10,text:'城市不遠但也不近，大一點的百貨公司要搭一小時的車，出發本身就是節日。',type:'normal'},
+    {age:12,text:'學校不大，但老師認識每一個學生，你的名字他從來不會叫錯。',type:'great'},
+    {age:9,text:'暑假跟著媽媽去市場，認識了每個攤主的臉，他們都叫你「那個誰家的孩子」。',type:'normal'},
+    {age:11,text:'第一次搭火車去隔壁縣市，看著窗外的田野覺得世界在變大。',type:'great'},
+    {age:13,text:'鎮上有一家書店，老闆娘認識你，偶爾讓你站著看書不趕你走。',type:'great'},
+  ],
+  rural:[
+    {age:7,text:'放學後在田埂上走回家，稻子的香氣跟著你走了好幾公里。',type:'great'},
+    {age:8,text:'暑假幫忙農事，曬黑了，但第一次覺得自己做的事是真實的。',type:'great'},
+    {age:10,text:'學校只有兩個班，從一年級到六年級幾乎都認識，轉學生來了整個鎮都知道。',type:'normal'},
+    {age:12,text:'第一次去大城市，站在百貨公司門口看了很久，才敢走進去。',type:'normal'},
+    {age:9,text:'鄰居的阿伯說你聰明，應該好好讀書，那句話你記了很多年。',type:'great'},
+    {age:11,text:'沒有補習班，但有很多時間，你讀了很多書，也想了很多事。',type:'great'},
+    {age:13,text:'有同學說要去城市讀書了，你送他到公路旁，看著車走遠，回頭繼續上學。',type:'normal'},
+  ],
+  abroad:[
+    {age:7,text:'在異國的教室裡，語言聽不懂，但你學會用畫畫和旁邊的孩子說話。',type:'normal'},
+    {age:8,text:'過年沒有鞭炮，媽媽包了餃子，你說這個比外面任何食物都好吃。',type:'great'},
+    {age:10,text:'有同學問你從哪裡來，你說了，他說在哪裡，你第一次試著解釋自己的家鄉。',type:'normal'},
+    {age:12,text:'第一次回台灣，走在街上覺得什麼都熟悉又什麼都陌生。',type:'normal'},
+    {age:9,text:'夾在兩種語言之間，有時候有些感受只能用其中一種表達，有時候兩種都說不清楚。',type:'bad'},
+    {age:11,text:'學校有來自十幾個國家的同學，你第一次覺得「不一樣」是很正常的事。',type:'great'},
+    {age:13,text:'有人問你覺得自己是哪裡人，你想了很久，說了一個答案，但那不是全部。',type:'normal'},
+  ],
+},
 childhood:[
   {age:6,text:'第一天上小學，哭著不肯進教室，最後被老師抱進去的。',type:'normal'},
   {age:7,text:'第一次搭飛機，看見雲從窗外飛過，覺得自己像在天上走路。',type:'great'},
@@ -449,29 +485,29 @@ const ENDINGS={
 };
 
 const HEADLINES={
-  tech_rich:'富裕家庭出身的科技人', tech_mid:'工程師的平凡與不凡', tech_poor:'白手起家的程式人',
-  govt_rich:'含著金湯匙的公務員', govt_mid:'穩穩走完的公職生涯', govt_poor:'窮小孩考上公務員',
-  business_rich:'富二代的創業豪賭', business_mid:'中產背景的創業起落', business_poor:'一無所有才無所畏懼',
-  art_rich:'富家子弟的藝術人生', art_mid:'追夢者的浪漫與現實', art_poor:'窮藝術家的倔強',
-  medical_rich:'醫生世家的第三代', medical_mid:'白袍下的人情冷暖', medical_poor:'清寒出身的仁醫',
+  tech_rich:'資源充沛的科技人', tech_mid:'工程師的平凡與不凡', tech_poor:'憑實力走出的程式人',
+  govt_rich:'穩健家庭的公職路', govt_mid:'穩穩走完的公職生涯', govt_poor:'靠自己考上公務員',
+  business_rich:'背景雄厚的創業豪賭', business_mid:'中產背景的創業起落', business_poor:'一無所有才無所畏懼',
+  art_rich:'無後顧之憂的藝術人生', art_mid:'追夢者的浪漫與現實', art_poor:'倔強的創作者',
+  medical_rich:'從容選擇的醫者之路', medical_mid:'白袍下的人情冷暖', medical_poor:'以醫術回饋社會的仁醫',
 };
 
 // 課文反思（根據數值高低給出不同角度）
 const REFLECTIONS={
   high:[
-    '這個人活得精采——但你有沒有問過他：「你累不累？」',
-    '數值亮眼，但弟弟的數值可能也很亮眼。\n吳念真說：他做到了，可是他很累。',
-    '看起來是成功的人生。\n可是「成功」是誰定義的？',
+    '這個人活得精采——但你有沒有想過，就算精采，「當他的弟弟妹妹」也可能很辛苦？',
+    '數值亮眼，但弟弟的遺書寫的是：「當你的弟弟妹妹，也很辛苦。」\n他也許也是這樣的數值。',
+    '看起來是成功的人生。\n可是成功的人，身邊的人有沒有因此承受了什麼？',
   ],
   mid:[
     '平凡的一生。吳念真的弟弟也是平凡的，\n但他的遺書卻讓人記了一輩子。',
-    '這個人盡了人事。\n有沒有人在他最累的時候，說一句「辛苦了」？',
+    '這個人盡了人事。\n有沒有人問過他：「你辛苦了嗎？」',
     '不轟轟烈烈，但每一天都真實。\n這樣的人生，值得被看見。',
   ],
   low:[
     '坎坷的人生。\n但坎坷不等於沒有意義——吳念真的弟弟教會我們這件事。',
-    '遺憾多於圓滿。\n如果有人早一點問他「你還好嗎」，會不會不一樣？',
-    '這個人很累。\n你看出來了嗎？在他還活著的時候？',
+    '遺憾多於圓滿。\n弟弟說「當你的弟弟妹妹，也很辛苦」——這份辛苦，有人看見了嗎？',
+    '這個人走得很沉。\n你看出來了嗎？在他還活著的時候？',
   ],
 };
 
@@ -498,7 +534,7 @@ function simulate(){
 
   let wealth={rich:72,mid:48,poor:22,single:32}[fam];
   let health=rInt(55,80);
-  let social={city:65,suburb:55,rural:45,abroad:60}[bp];
+  let social=rInt(50,65);
   let fulfill=50;
 
   const tfx={hardworking:[15,0,0,12],lucky:[18,10,5,8],social:[-5,0,22,8],creative:[-5,5,-5,22],rebel:[5,-5,-8,15],cautious:[8,15,5,0]}[trait];
@@ -522,15 +558,16 @@ function simulate(){
 
   const famDesc={rich:'出生在富裕家庭',mid:'在中產家庭長大',poor:'從清寒環境出發',single:'在單親家庭中成長'}[fam];
   const traitDesc={hardworking:'努力',lucky:'幸運',social:'社交',creative:'創意',rebel:'叛逆',cautious:'謹慎'}[trait];
-  const bpDesc={city:'台北都市',suburb:'台中城市',rural:'雲林鄉間',abroad:'異鄉他處'}[bp];
-  const sub=`${famDesc}，帶著${traitDesc}的特質，在${bpDesc}走過這一生。`;
+  const bpDesc={city:'都市',suburb:'小城市',rural:'鄉鎮',abroad:'異鄉'}[bp];
+  const sub=`${famDesc}，帶著${traitDesc}的特質，在${bpDesc}環境中走過這一生。`;
 
   const youngPool=E.young[edu]||E.young.university;
   const careerPool=E.career[career]||[];
   const lovePool=E.love[love]||[];
+  const bpPool=E.birthplace[bp]||[];
 
   const events=[
-    ...pickN(E.childhood,3),...pickN(E.teen,3),
+    ...pickN(bpPool,2),...pickN(E.childhood,3),...pickN(E.teen,3),
     ...pickN(youngPool,2),...pickN(careerPool,3),
     ...pickN(lovePool,2),...pickN(E.middle,3),...pickN(E.old,2),
   ];
@@ -542,7 +579,8 @@ function simulate(){
   document.getElementById('r-sub').textContent=sub;
 
   const tagLabels=[
-    {rich:'富裕家庭',mid:'中產家庭',poor:'清寒出身',single:'單親家庭'}[fam],
+    {rich:'富裕家庭',mid:'中產家庭',poor:'清寒家庭',single:'單親家庭'}[fam],
+    {city:'都市成長',suburb:'小城市成長',rural:'鄉鎮成長',abroad:'海外成長'}[bp],
     {tech:'科技業',govt:'公務員',business:'創業',art:'藝術',medical:'醫療'}[career],
     {hardworking:'努力型',lucky:'幸運兒',social:'社交達人',creative:'創意腦',rebel:'叛逆者',cautious:'謹慎派'}[trait],
   ];
