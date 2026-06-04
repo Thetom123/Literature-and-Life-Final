@@ -102,11 +102,6 @@
   .reflection-label{font-size:11px;letter-spacing:0.15em;color:#8b2020;margin-bottom:0.75rem;}
   .reflection-text{font-size:13px;font-family:'Noto Serif TC',serif;color:var(--text2);line-height:1.9;font-style:italic;}
   
-  /* 人生紀念冊樣式 */
-  .past-life-item {font-size:13px;color:var(--text2);padding:8px 0;border-bottom:1px solid var(--bg3);line-height:1.6;}
-  .past-life-item:last-child {border-bottom:none;}
-  .past-life-title {color:var(--gold2);font-family:'Noto Serif TC',serif;font-weight:600;}
-  
   .reset-btn{width:100%;padding:12px;background:transparent;border:0.5px solid var(--border);color:var(--text2);font-size:13px;font-family:'Noto Sans TC',sans-serif;cursor:pointer;margin-top:1rem;letter-spacing:0.1em;transition:all 0.2s;border-radius:4px;}
   .reset-btn:hover{border-color:var(--border2);color:var(--text);}
   @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
@@ -134,11 +129,6 @@
       如果可以重新來過，他會選什麼？<br>
       現在，換你決定一個人的人生。
     </p>
-
-    <div id="past-lives-block" class="choices-summary" style="display:none; margin-bottom: 2rem;">
-      <p class="choices-summary-label" style="color:var(--gold2);">📖 人生紀念冊（歷史輪迴存檔）</p>
-      <div id="past-lives-list"></div>
-    </div>
 
     <div class="divider"><span>起始條件（天命）</span></div>
     <div class="grid2">
@@ -472,28 +462,6 @@ function rInt(a,b){return Math.floor(Math.random()*(b-a+1))+a;}
 function pickN(arr,n){return [...arr].sort(()=>Math.random()-0.5).slice(0,Math.min(n,arr.length));}
 const clamp=v=>Math.min(98,Math.max(8,Math.round(v)));
 
-// 初始化讀取「人生紀念冊」歷史資料
-function loadPastLives() {
-  const history = localStorage.getItem('life_sim_history');
-  const block = document.getElementById('past-lives-block');
-  const list = document.getElementById('past-lives-list');
-  
-  if (history) {
-    const arr = JSON.parse(history);
-    if (arr.length > 0) {
-      block.style.display = 'block';
-      list.innerHTML = arr.map((item, index) => `
-        <div class="past-life-item">
-          第 ${index + 1} 世：<span class="past-life-title">【${item.headline}】</span> 
-          終年 ${item.age} 歲，${item.ending} <br>
-          <span style="font-size:11px; color:var(--text3);">${item.sub}</span>
-        </div>
-      `).join('');
-      return;
-    }
-  }
-  block.style.display = 'none';
-}
 
 document.querySelectorAll('.chip').forEach(c=>{
   c.addEventListener('click',()=>{
@@ -502,10 +470,6 @@ document.querySelectorAll('.chip').forEach(c=>{
   });
 });
 
-// 頁面加載時自動讀取存檔
-window.onload = function() {
-  loadPastLives();
-};
 
 // ── 5. 模擬器初始化 ──────────────────────────────────
 function startSimulation(){
@@ -806,19 +770,6 @@ function showResult(){
     return true;
   });
 
-  // ── 寫入人生紀念冊系統（多週目 LocalStorage 存檔更新） ──
-  let historyData = localStorage.getItem('life_sim_history');
-  let historyArr = historyData ? JSON.parse(historyData) : [];
-  historyArr.push({
-    headline: headline,
-    age: lifeAge,
-    ending: ending,
-    sub: sub
-  });
-  // 最多保留過去 5 次遊玩紀錄，避免緩存過大
-  if (historyArr.length > 5) historyArr.shift();
-  localStorage.setItem('life_sim_history', JSON.stringify(historyArr));
-
   // ── 渲染輸出畫面 ──
   document.getElementById('r-headline').textContent=headline;
   document.getElementById('r-sub').textContent=sub;
@@ -877,7 +828,7 @@ function reset(){
   document.getElementById('setup-section').style.display='block';
   document.getElementById('choice-section').style.display='none';
   document.getElementById('result-section').style.display='none';
-  loadPastLives(); // 重置時重新整理紀念冊
+
   window.scrollTo({top:0,behavior:'smooth'});
 }
 </script>
